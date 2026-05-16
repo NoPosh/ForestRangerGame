@@ -29,6 +29,11 @@ public class InteractionController: IInitializable, IDisposable
         if (target != null && target.CanInteract())
         {
             target.Interact();
+            Debug.Log("Взаимодействие");
+        }
+        else
+        {
+            Debug.Log("Не с чем взаимодействовать");
         }
     }
 

@@ -1,22 +1,26 @@
+using R3;
 using System;
 using UnityEngine;
 using Zenject;
 
 public class PlaceForPhoto : MonoBehaviour, IInteractable
 {
-    //Сюда если подходит игрок, у него в руках должна быть камера, чтобы взаимодействовать
+    //РЎСЋРґР° РµСЃР»Рё РїРѕРґС…РѕРґРёС‚ РёРіСЂРѕРє, Сѓ РЅРµРіРѕ РІ СЂСѓРєР°С… РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РєР°РјРµСЂР°, С‡С‚РѕР±С‹ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРѕРІР°С‚СЊ
     [Inject] private IInventoryProvider _inventoryProvider;
 
     public Transform Transform => transform;
 
     public event Action<IInteractable> OnDestroyed;
 
+    private Subject<Unit> _onPictureTaked = new();
+    public Observable<Unit> OnPictureTaked => _onPictureTaked;
+
     public bool CanInteract()
     {
-        //Можно, только если в руках фотоаппарат
+        //РњРѕР¶РЅРѕ, С‚РѕР»СЊРєРѕ РµСЃР»Рё РІ СЂСѓРєР°С… С„РѕС‚РѕР°РїРїР°СЂР°С‚
         if (_inventoryProvider.Inventory.CurrentValue.SelectedItem.CurrentValue == null) return false;
 
-        if (_inventoryProvider.Inventory.CurrentValue.SelectedItem.CurrentValue.Name == "Камера")
+        if (_inventoryProvider.Inventory.CurrentValue.SelectedItem.CurrentValue.Name == "РљР°РјРµСЂР°")
             return true;
 
         return false;
@@ -24,12 +28,16 @@ public class PlaceForPhoto : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        //Делаем фотку
-        Debug.Log("Сделали фотку");
+        //Р”РµР»Р°РµРј С„РѕС‚РєСѓ
+        Debug.Log("РЎРґРµР»Р°Р»Рё С„РѕС‚РєСѓ");
+        _onPictureTaked.OnNext(Unit.Default);
+        //РўСѓС‚ РЅР°РґРѕ РєСЂС‡ РЅР° СѓСЂРѕРІРµРЅСЊ РїРѕСЃР»Р°С‚СЊ СЃРёРіРЅР°Р»
     }
 
     private void OnDestroy()
     {
         OnDestroyed?.Invoke(this);
+        _onPictureTaked.OnCompleted();
+        _onPictureTaked.Dispose();
     }
 }
