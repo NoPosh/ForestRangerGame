@@ -11,6 +11,7 @@ public class CharacterInstaller : MonoInstaller
 
     [SerializeField] private Transform _characterTransform;
     [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private SpriteRenderer _itemRenderer;
     public override void InstallBindings()
     {
         Container.Bind<InventoryItemDatabase>().FromScriptableObject(_inventoryItemsDatabase).AsSingle();
@@ -18,6 +19,7 @@ public class CharacterInstaller : MonoInstaller
         Container.Bind<CharacterRotationSO>().FromScriptableObject(_rotationSO).AsSingle();
         Container.Bind<Transform>().FromInstance(_characterTransform).AsSingle();
         Container.Bind<Rigidbody2D>().FromInstance(_rigidbody).AsSingle();
+        Container.Bind<SpriteRenderer>().FromInstance(_itemRenderer).AsSingle();
 
         Container.Bind<ItemUsageFactory>().AsSingle();
 
@@ -30,5 +32,6 @@ public class CharacterInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<InteractionController>().AsSingle().NonLazy();
 
         Container.BindInterfacesAndSelfTo<ItemUser>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<EquipmentHandler>().AsSingle().NonLazy();
     }
 }
