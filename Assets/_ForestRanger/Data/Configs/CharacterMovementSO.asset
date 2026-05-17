@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d34c20cc7173714dafae742f1b17631, type: 3}
   m_Name: CharacterMovementSO
   m_EditorClassIdentifier: Assembly-CSharp::CharacterMovementSO
-  MaxSpeed: 3
+  MaxSpeed: 5

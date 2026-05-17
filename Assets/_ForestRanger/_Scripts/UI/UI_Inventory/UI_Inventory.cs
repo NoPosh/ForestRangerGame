@@ -6,15 +6,15 @@ using Zenject;
 
 public class UI_Inventory : MonoBehaviour
 {
-    //Открыть/закрыть панель
-    //По сути, сейчас у нас инвентарь всегда одинаковый
+    //РћС‚РєСЂС‹С‚СЊ/Р·Р°РєСЂС‹С‚СЊ РїР°РЅРµР»СЊ
+    //РџРѕ СЃСѓС‚Рё, СЃРµР№С‡Р°СЃ Сѓ РЅР°СЃ РёРЅРІРµРЅС‚Р°СЂСЊ РІСЃРµРіРґР° РѕРґРёРЅР°РєРѕРІС‹Р№
     [Inject] private IInventoryProvider _inventoryProvider;
     [Inject] private InventoryState _inventoryState;
 
     [SerializeField] private GameObject _inventoryPanel;
     [SerializeField] private Button _closeButton;
 
-    [Header("Кнопки предметов")]
+    [Header("РљРЅРѕРїРєРё РїСЂРµРґРјРµС‚РѕРІ")]
     [SerializeField] private List<ItemSelectButton> _itemButtons;
 
     private CharacterInventory _inventory;
@@ -36,11 +36,11 @@ public class UI_Inventory : MonoBehaviour
 
     private void OnEnable()
     {
-        _closeButton.onClick.AddListener(CloseInventory);
+        _closeButton.onClick.AddListener(_inventoryState.CloseInventory);
     }
     private void OnDisable()
     {
-        _closeButton.onClick.RemoveListener(CloseInventory);
+        _closeButton.onClick.RemoveListener(_inventoryState.CloseInventory);
     }
 
     public void OpenInventory()
