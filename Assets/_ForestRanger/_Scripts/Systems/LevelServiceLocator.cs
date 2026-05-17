@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 public class LevelServiceLocator
@@ -14,7 +13,7 @@ public class LevelServiceLocator
 
         if (_services.ContainsKey(type))
         {
-            Debug.Log($"[ServiceLocator] Сервис {typeof(TService)} уже был зарегестрирован, меняем");
+            Debug.Log($"[ServiceLocator] РЎРµСЂРІРёСЃ {typeof(TService)} СѓР¶Рµ Р±С‹Р» Р·Р°СЂРµРіРµСЃС‚СЂРёСЂРѕРІР°РЅ, РјРµРЅСЏРµРј");
         }
 
         _services[typeof(TService)] = obj;
@@ -27,7 +26,7 @@ public class LevelServiceLocator
         if (_services.TryGetValue(type, out var service))
             return service as TService;
 
-        Debug.Log($"Сервис {typeof(TService)} не зарегестрирован");
+        Debug.Log($"РЎРµСЂРІРёСЃ {typeof(TService)} РЅРµ Р·Р°СЂРµРіРµСЃС‚СЂРёСЂРѕРІР°РЅ");
         return null;
     }
     public void Unregister<TService>() where TService : class
